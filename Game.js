@@ -36,7 +36,7 @@ function returnColor(cell) {
   }
 }
 
-export default function Game({ setPage, diffuculty, setFinalScore }) {
+export default function Game({ setPage, diffuculty, setFinalScore, setHighScores }) {
   const [score, setScore] = useState(0);
   const [board, setBoard] = useState([]);
   const [colors, setColors] = useState([randomColor(), randomColor()]);
@@ -90,6 +90,32 @@ export default function Game({ setPage, diffuculty, setFinalScore }) {
       tempBoard.push(row);
     }
     setBoard(tempBoard);
+
+    const fetchData = async () => {
+      try {
+        const response = await fetch('https://correct-boxd-backend.onrender.com/cc-leaderboard');
+
+        if (!response.ok) {
+          throw new Error('Network request failed');
+        }
+
+        const result = await response.json();
+
+        // Filter out items without a name
+        const filteredHighScores = result.filter(item => item.name);
+
+        // Sort the filtered high scores by score in descending order
+        const sortedHighScores = filteredHighScores.sort((a, b) => b.score - a.score).slice(0, 5);
+
+        // Set the state with the filtered and sorted high scores
+        setHighScores(sortedHighScores);
+      } catch (error) {
+        console.error('Error fetching data:', error.message);
+      }
+    };
+
+
+    fetchData();
   }, []);
 
 
@@ -148,7 +174,7 @@ export default function Game({ setPage, diffuculty, setFinalScore }) {
 
   useEffect(() => {
     if (score > 0) {
-      const randomNum = String(Math.floor(Math.random() * 200));
+      const randomNum = String(Math.floor(Math.random() * 500));
 
       if (randomNum.length == 2) {
         if (Number(randomNum.charAt(0)) <= 6 && Number(randomNum.charAt(1)) <= 6) {

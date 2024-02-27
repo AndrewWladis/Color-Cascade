@@ -12,15 +12,16 @@ export default function App() {
   const [page, setPage] = useState('home');
   const [diffuculty, setDiffuculty] = useState(1);
   const [finalScore, setFinalScore] = useState(0);
+  const [highScores, setHighScores] = useState([]);
 
   const renderScreen = () => {
     switch (page) {
       case 'home':
         return <Home setPage={setPage} setDiffuculty={setDiffuculty} />;
       case 'game':
-        return <Game setPage={setPage} diffuculty={diffuculty} setFinalScore={setFinalScore} />;
+        return <Game setPage={setPage} diffuculty={diffuculty} setFinalScore={setFinalScore} setHighScores={setHighScores} />;
       case 'gameover':
-        return <GameOver setPage={setPage} diffuculty={diffuculty} finalScore={finalScore} />;
+        return <GameOver setPage={setPage} diffuculty={diffuculty} finalScore={finalScore} highScores={highScores} />;
       default:
         return <Home setPage={setPage} setDiffuculty={setDiffuculty} />;
     }

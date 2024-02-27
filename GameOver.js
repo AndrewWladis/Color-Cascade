@@ -5,7 +5,7 @@ import { useEffect, useState } from 'react';
 import { LinearGradient } from 'expo-linear-gradient';
 import randomColor from './functions/randomColor';
 
-export default function GameOver({ setPage, diffuculty, finalScore }) {
+export default function GameOver({ setPage, diffuculty, finalScore, highScores }) {
     const diffucultyArray = ['Easy', 'Medium', 'Hard'];
 
     return (
@@ -23,6 +23,16 @@ export default function GameOver({ setPage, diffuculty, finalScore }) {
                     <Text style={styles.buttonText}>Play Again</Text>
                 </TouchableOpacity>
             </View>
+            {(highScores.length > 0) ? (
+                <View style={styles.highScores}>
+                    <Text style={styles.highScoresTitle}>High Scores</Text>
+                    {highScores.map((score, index) => {
+                        return (
+                            <Text key={index} style={styles.highScore}>{score.name} - {score.score}</Text>
+                        );
+                    })}
+                </View>
+            ) : null}
             <StatusBar style="auto" />
         </LinearGradient>
     );

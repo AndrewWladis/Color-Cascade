@@ -53,6 +53,22 @@ const styles = StyleSheet.create({
     fontSize: 45,
     fontWeight: '900',
   },
+  highScore: {
+    color: 'white',
+    fontSize: 25,
+    fontWeight: '800',
+    padding: 10,
+  },
+  highScores: {
+    flexDirection: 'column',
+    alignItems: 'center',
+  },
+  highScoresTitle: {
+    color: 'white',
+    fontSize: 35,
+    fontWeight: '900',
+    padding: 10,
+  },
   score: {
     color: 'white',
     fontSize: 100,
