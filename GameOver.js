@@ -7,6 +7,7 @@ import randomColor from './functions/randomColor';
 
 export default function GameOver({ setPage, diffuculty, finalScore, highScores }) {
     const [yourName, setYourName] = useState(null);
+    const [hasDataBeenSent, setHasDataBeenSent] = useState(false);
     const diffucultyArray = ['Easy', 'Medium', 'Hard'];
 
     const showAlertWithInput = () => {
@@ -19,7 +20,7 @@ export default function GameOver({ setPage, diffuculty, finalScore, highScores }
     };
 
     useEffect(() => {
-        if (highScores !== null && highScores !== undefined && highScores.length !== 0) {
+        if (highScores !== null && highScores !== undefined && highScores.length !== 0 && !hasDataBeenSent) {
             if (highScores[highScores.length - 1].score < finalScore) {
                 showAlertWithInput()
             }
@@ -51,6 +52,8 @@ export default function GameOver({ setPage, diffuculty, finalScore, highScores }
                 } catch (error) {
                     console.error('An error occurred:', error.message);
                     // Handle error accordingly
+                } finally {
+                    setHasDataBeenSent(true);
                 }
             };
 
