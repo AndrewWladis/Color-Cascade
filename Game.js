@@ -61,7 +61,7 @@ export default function Game({ setPage, diffuculty, setFinalScore, setHighScores
 
         let matchCount = 0;
         neighbors.forEach(([x, y]) => {
-          if (x >= 0 && x < board.length && y >= 0 && y < board[i].length && board[x][y] === currentCell) {
+          if (x >= 0 && x < board.length && y >= 0 && y < board[i].length && board[x][y] === currentCell && board[x][y] !== 11) {
             matchCount++;
           }
         });

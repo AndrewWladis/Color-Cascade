@@ -1,14 +1,13 @@
 import { StatusBar } from 'expo-status-bar';
 import { Text, TouchableOpacity, View } from 'react-native';
 import styles from './Styles';
-import { useEffect, useState } from 'react';
 import { LinearGradient } from 'expo-linear-gradient';
 import randomColor from './functions/randomColor';
 
 export default function Home({ setPage, setDiffuculty }) {
     return (
         <LinearGradient style={styles.container} colors={[randomColor(), randomColor()]}>
-            <Text style={styles.title}>Color Cascade</Text>
+            <Text style={styles.title}>Color Cascades</Text>
             <View style={styles.buttonContainer}>
                 <TouchableOpacity style={styles.button} onPress={() => {
                     setDiffuculty(1);
