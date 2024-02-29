@@ -31,6 +31,8 @@ function returnColor(cell) {
       return ['#64c3e3', '#3688a3'];
     case 11:
       return ['#5c5c5c', '#5c5c5c'];
+    case 12:
+      return ['#FF0000', '#FF7F00', '#FFFF00', '#00FF00', '#0000FF', '#4B0082'];
     default:
       return ['black', 'black'];
   }
@@ -61,7 +63,7 @@ export default function Game({ setPage, diffuculty, setFinalScore, setHighScores
 
         let matchCount = 0;
         neighbors.forEach(([x, y]) => {
-          if (x >= 0 && x < board.length && y >= 0 && y < board[i].length && board[x][y] === currentCell && board[x][y] !== 11) {
+          if (x >= 0 && x < board.length && y >= 0 && y < board[i].length && (board[x][y] === currentCell || board[x][y] === 12) && board[x][y] !== 11) {
             matchCount++;
           }
         });
@@ -125,8 +127,14 @@ export default function Game({ setPage, diffuculty, setFinalScore, setHighScores
       const secondSelected = board[selected[1][0]][selected[1][1]];
       const thirdSelected = board[selected[2][0]][selected[2][1]];
       const selectedSet = new Set(selected.map(JSON.stringify));
+      const selectedSetOfValues = new Set([firstSelected, secondSelected, thirdSelected].map(JSON.stringify));
 
-      if (firstSelected === secondSelected && secondSelected === thirdSelected && selectedSet.size === selected.length) {
+      if (
+        ((firstSelected === secondSelected && secondSelected === thirdSelected) ||
+        ([firstSelected, secondSelected, thirdSelected].includes(12) && selectedSetOfValues.size === 1) ||
+        ([firstSelected, secondSelected, thirdSelected].includes(12) && selectedSetOfValues.size === 2)) && 
+        selectedSet.size === selected.length
+      ) {
         let connected = [false, false, false];
         // check perimeter of first, second, and third looking for another connected piece
         for (let i = 0; i < 3; i++) {
@@ -150,7 +158,11 @@ export default function Game({ setPage, diffuculty, setFinalScore, setHighScores
             setColors([colors[0], randomColor()]);
           }
 
-          setScore(score + 90 + Math.floor(Math.random() * 20));
+          if (firstSelected === 11 || secondSelected === 11 || thirdSelected === 11) {
+            setScore(score + 190 + Math.floor(Math.random() * 20));
+          } else {
+            setScore(score + 90 + Math.floor(Math.random() * 20));
+          }
           const newBoard = board.map((col, i) => {
             return col.map((cell, j) => {
               if (selected.some(coords => coords[0] === i && coords[1] === j)) {
@@ -174,12 +186,12 @@ export default function Game({ setPage, diffuculty, setFinalScore, setHighScores
 
   useEffect(() => {
     if (score > 0) {
-      const randomNum = String(Math.floor(Math.random() * 500));
+      const randomNum = String(Math.floor(Math.random() * 100));
 
       if (randomNum.length == 2) {
         if (Number(randomNum.charAt(0)) <= 6 && Number(randomNum.charAt(1)) <= 6) {
           let newBoard = [...board];
-          newBoard[Number(randomNum.charAt(1))][Number(randomNum.charAt(0))] = 11;
+          newBoard[Number(randomNum.charAt(1))][Number(randomNum.charAt(0))] = Math.floor(Math.random() * 2) + 11;
           setBoard(newBoard);
         }
       }
