@@ -158,21 +158,31 @@ export default function Game({ setPage, diffuculty, setFinalScore, setHighScores
             setColors([colors[0], randomColor()]);
           }
 
-          if (firstSelected === 11 || secondSelected === 11 || thirdSelected === 11) {
+          if (firstSelected === 12 || secondSelected === 12 || thirdSelected === 12) {
             setScore(score + 190 + Math.floor(Math.random() * 20));
+            const newBoard = board.map((col, i) => {
+              return col.map((cell, j) => {
+                if (selected.some(coords => coords[0] === i || coords[1] === j)) {
+                  return Math.floor(Math.random() * 8);
+                } else {
+                  return cell;
+                }
+              });
+            });
+            setBoard(newBoard)
           } else {
             setScore(score + 90 + Math.floor(Math.random() * 20));
-          }
-          const newBoard = board.map((col, i) => {
-            return col.map((cell, j) => {
-              if (selected.some(coords => coords[0] === i && coords[1] === j)) {
-                return Math.floor(Math.random() * 8);
-              } else {
-                return cell;
-              }
+            const newBoard = board.map((col, i) => {
+              return col.map((cell, j) => {
+                if (selected.some(coords => coords[0] === i && coords[1] === j)) {
+                  return Math.floor(Math.random() * 8);
+                } else {
+                  return cell;
+                }
+              });
             });
-          });
-          setBoard(newBoard)
+            setBoard(newBoard)
+          }
 
           setSelected([]);
         } else {
