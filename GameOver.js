@@ -1,5 +1,5 @@
 import { StatusBar } from 'expo-status-bar';
-import { Text, TouchableOpacity, View, Alert } from 'react-native';
+import { Text, TouchableOpacity, View, Alert, Platform } from 'react-native';
 import styles from './Styles';
 import { useEffect, useState } from 'react';
 import { LinearGradient } from 'expo-linear-gradient';
@@ -11,12 +11,15 @@ export default function GameOver({ setPage, diffuculty, finalScore, highScores }
     const diffucultyArray = ['Easy', 'Medium', 'Hard'];
 
     const showAlertWithInput = () => {
-        Alert.prompt(
-            'Enter your name for the leaderboard.',
-            'Enter your name',
-            (text) => setYourName(text),
-            'plain-text',
-        );
+        if (Platform.OS !== 'web') {
+            Alert.prompt(
+                'Enter your name for the leaderboard.',
+                'Enter your name',
+                (text) => setYourName(text),
+                'plain-text',
+            );
+        }
+
     };
 
     useEffect(() => {
