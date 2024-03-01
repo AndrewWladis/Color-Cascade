@@ -31,8 +31,6 @@ function returnColor(cell) {
       return ['#64c3e3', '#3688a3'];
     case 11:
       return ['#5c5c5c', '#5c5c5c'];
-    case 12:
-      return ['#FF0000', '#FF7F00', '#FFFF00', '#00FF00', '#0000FF', '#4B0082'];
     default:
       return ['black', 'black'];
   }
@@ -201,7 +199,7 @@ export default function Game({ setPage, diffuculty, setFinalScore, setHighScores
       if (randomNum.length == 2) {
         if (Number(randomNum.charAt(0)) <= 6 && Number(randomNum.charAt(1)) <= 6) {
           let newBoard = [...board];
-          newBoard[Number(randomNum.charAt(1))][Number(randomNum.charAt(0))] = Math.floor(Math.random() * 2) + 11;
+          newBoard[Number(randomNum.charAt(1))][Number(randomNum.charAt(0))] = 11;
           setBoard(newBoard);
         }
       }
