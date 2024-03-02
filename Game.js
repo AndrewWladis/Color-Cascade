@@ -194,7 +194,7 @@ export default function Game({ setPage, diffuculty, setFinalScore, setHighScores
 
   useEffect(() => {
     if (score > 0) {
-      const randomNum = String(Math.floor(Math.random() * 100));
+      const randomNum = String(Math.floor(Math.random() * 600));
 
       if (randomNum.length == 2) {
         if (Number(randomNum.charAt(0)) <= 6 && Number(randomNum.charAt(1)) <= 6) {
